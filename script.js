@@ -1,7 +1,6 @@
 // Wrap all code that interacts with the DOM in a call to jQuery to ensure that
 // the code isn't run until the browser has finished rendering all the elements
 // in the html.
-var hourSlot = $(".row"); // this showcases the row of the entity
 var saveButton = $(".saveBtn");
 
 $(function () {
@@ -22,16 +21,32 @@ $(function () {
   var fourPM = $("#hour-4");
   var fivePM = $("#hour-5");
 
-  nineAM.children(".description").text(localStorage.getItem("9AM"));
-  tenAM.children(".description").text(localStorage.getItem("10AM"));
-  elevenAM.children(".description").text(localStorage.getItem("11AM"));
-  twelvePM.children(".description").text(localStorage.getItem("12PM"));
-  onePM.children(".description").text(localStorage.getItem("1PM"));
-  twoPM.children(".description").text(localStorage.getItem("2PM"));
-  threePM.children(".description").text(localStorage.getItem("3PM"));
-  fourPM.children(".description").text(localStorage.getItem("4PM"));
-  fivePM.children(".description").text(localStorage.getItem("5PM"));
+  var timeSlots = [
+    nineAM,
+    tenAM,
+    elevenAM,
+    twelvePM,
+    onePM,
+    twoPM,
+    threePM,
+    fourPM,
+    fivePM,
+  ];
 
+  nineAM.children(".description").text(localStorage.getItem("9 am"));
+  tenAM.children(".description").text(localStorage.getItem("10 am"));
+  elevenAM.children(".description").text(localStorage.getItem("11 am"));
+  twelvePM.children(".description").text(localStorage.getItem("12 pm"));
+  onePM.children(".description").text(localStorage.getItem("1 pm"));
+  twoPM.children(".description").text(localStorage.getItem("2 pm"));
+  threePM.children(".description").text(localStorage.getItem("3 pm"));
+  fourPM.children(".description").text(localStorage.getItem("4 pm"));
+  fivePM.children(".description").text(localStorage.getItem("5 pm"));
+
+  // TODO: Add code to get any user input that was saved in localStorage and set
+  // the values of the corresponding textarea elements. HINT: How can the id
+  // attribute of each time-block be used to do this?
+  //
   function SaveToLocal(event) {
     event.preventDefault();
     var save = $(this).siblings(".description").val();
@@ -44,25 +59,33 @@ $(function () {
   }
   saveButton.on("click", SaveToLocal);
 
-  // TODO: Add code to apply the past, present, or future class to each time
-  // block by comparing the id to the current hour. HINTS: How can the id
-  // attribute of each time-block be used to conditionally add or remove the
-  // past, present, and future classes? How can Day.js be used to get the
-  // current hour in 24-hour time?
-  //
-
-  // TODO: Add code to get any user input that was saved in localStorage and set
-  // the values of the corresponding textarea elements. HINT: How can the id
-  // attribute of each time-block be used to do this?
-  //
-
   // TODO: Add code to display the current date in the header of the page.
   setInterval(() => {
     var today = dayjs();
     var date = $("#currentDay");
     date.text(today.format("h:mm:ss a, dddd, MMM D, YYYY"));
 
-    console.log(today.format("h a"));
+    var time = today.format("h a");
+
+    // TODO: Add code to apply the past, present, or future class to each time
+    // block by comparing the id to the current hour. HINTS: How can the id
+    // attribute of each time-block be used to conditionally add or remove the
+    // past, present, and future classes? How can Day.js be used to get the
+    // current hour in 24-hour time?
+    //
+
+    for (i = 0; i < timeSlots.length; i++) {
+      if (time === timeSlots[i].children(".text-center").text()) {
+        console.log("MATCH MATCH");
+        timeSlots[i].addClass("present");
+        if (i > 0) {
+          timeSlots[i - 1].addClass("past");
+        }
+        if (i < timeSlots.length - 1) {
+          timeSlots[i + 1].addClass("future");
+        }
+      }
+    }
   }, 1000);
 });
 ``;

@@ -3,6 +3,10 @@ body {
   font-size: 16px;
 }
 
+header{
+  background: lightblue
+}
+
 textarea {
   background: transparent;
   border: none;
