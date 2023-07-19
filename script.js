@@ -33,7 +33,7 @@ $(function () {
     fivePM,
   ];
 
-  nineAM.children(".description").text(localStorage.getItem("9 am"));
+  $("#hour-9 .description").text(localStorage.getItem("9 am"));
   tenAM.children(".description").text(localStorage.getItem("10 am"));
   elevenAM.children(".description").text(localStorage.getItem("11 am"));
   twelvePM.children(".description").text(localStorage.getItem("12 pm"));
@@ -47,6 +47,13 @@ $(function () {
   // the values of the corresponding textarea elements. HINT: How can the id
   // attribute of each time-block be used to do this?
   //
+
+  // $(".saveBtn").on("click", function(){
+  //   var hour = $(this).parent().attr("id");
+  //   var save = $(this).siblings(".description").val();
+  //   localStorage.setItem(hour, save);
+  // })
+
   function SaveToLocal(event) {
     event.preventDefault();
     var save = $(this).siblings(".description").val();
@@ -59,6 +66,22 @@ $(function () {
   }
   saveButton.on("click", SaveToLocal);
 
+  function colorChange() {
+    var currentHour = dayjs().hour();
+    $(".time-block").each(function () {
+      var blockHour = parseInt($(this).attr("id").split("-")[1]);
+      if (blockHour < currentHour) {
+        $(this).addClass("past");
+      } else if (blockHour === currentHour) {
+        $(this).removeClass("past");
+        $(this).addClass("present");
+      } else {
+        $(this).removeClass("past");
+        $(this).removeClass("present");
+        $(this).addClass("future");
+      }
+    });
+  }
   // TODO: Add code to display the current date in the header of the page.
   setInterval(() => {
     var today = dayjs();
@@ -73,19 +96,21 @@ $(function () {
     // past, present, and future classes? How can Day.js be used to get the
     // current hour in 24-hour time?
     //
+    colorChange();
 
-    for (i = 0; i < timeSlots.length; i++) {
-      if (time === timeSlots[i].children(".text-center").text()) {
-        console.log("MATCH MATCH");
-        timeSlots[i].addClass("present");
-        if (i > 0) {
-          timeSlots[i - 1].addClass("past");
-        }
-        if (i < timeSlots.length - 1) {
-          timeSlots[i + 1].addClass("future");
-        }
-      }
-    }
+    // for (i = 0; i < timeSlots.length; i++) {
+    //   if (time === timeSlots[i].children(".text-center").text()) {
+    //     //red color
+    //     timeSlots[i].addClass("present");
+    //     //gray color
+    //     if (i > 0) {
+    //       timeSlots[i - 1].addClass("past");
+    //     }
+    //     //green color
+    //     if (i < timeSlots.length - 1) {
+    //       timeSlots[i + 1].addClass("future");
+    //     }
+    //   }
+    // }
   }, 1000);
 });
-``;
