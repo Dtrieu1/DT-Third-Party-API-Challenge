@@ -97,20 +97,5 @@ $(function () {
     // current hour in 24-hour time?
     //
     colorChange();
-
-    // for (i = 0; i < timeSlots.length; i++) {
-    //   if (time === timeSlots[i].children(".text-center").text()) {
-    //     //red color
-    //     timeSlots[i].addClass("present");
-    //     //gray color
-    //     if (i > 0) {
-    //       timeSlots[i - 1].addClass("past");
-    //     }
-    //     //green color
-    //     if (i < timeSlots.length - 1) {
-    //       timeSlots[i + 1].addClass("future");
-    //     }
-    //   }
-    // }
   }, 1000);
 });
