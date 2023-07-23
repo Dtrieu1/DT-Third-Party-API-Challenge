@@ -15,11 +15,11 @@ $(function () {
   var tenAM = $("#hour-10");
   var elevenAM = $("#hour-11");
   var twelvePM = $("#hour-12");
-  var onePM = $("#hour-1");
-  var twoPM = $("#hour-2");
-  var threePM = $("#hour-3");
-  var fourPM = $("#hour-4");
-  var fivePM = $("#hour-5");
+  var onePM = $("#hour-13");
+  var twoPM = $("#hour-14");
+  var threePM = $("#hour-15");
+  var fourPM = $("#hour-16");
+  var fivePM = $("#hour-17");
 
   var timeSlots = [
     nineAM,
